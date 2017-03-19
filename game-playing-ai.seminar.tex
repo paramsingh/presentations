@@ -1,0 +1,306 @@
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice.
+
+\documentclass{beamer}
+\usepackage{graphicx}
+
+% There are many different themes available for Beamer. A comprehensive
+% list with examples is given here:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+% You can uncomment the themes below if you would like to use a different
+% one:
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{boxes}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+\usetheme{default}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+\title{Game Playing in Artificial Intelligence}
+
+
+\author{Param Singh}
+
+\institute[National Institute of Technology, Hamirpur]
+{
+  14MI517\\
+  Computer Science and Engineering Department\\
+  National Institute of Technology, Hamirpur\\
+}
+
+\date{19th March, 2017}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+% Let's get started
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Section and subsections will appear in the presentation overview
+% and table of contents.
+\section{Introduction}
+
+\begin{frame}{Introduction}
+  \begin{itemize}
+  \item {
+    One of the most studied and most interesting areas of Artificial Intelligence
+  }
+  \item {
+    Fun but a little hard to create.
+  }
+  \end{itemize}
+\end{frame}
+
+% You can reveal the parts of a slide one at a time
+% with the \pause command:
+
+\begin{frame}{Definition}
+  \begin{itemize}
+  \item {
+    Game artificial intelligence refers to techniques used to produce the illusion of intelligence in the behavior of the computer.
+  }
+  \item {
+    Emphasis is on developing rational agents that match or exceed human performance in the game.
+  }
+  \item {
+    This generally works really well, and computer abilities must be toned down to make the experience better for human players.
+  }
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Definition (cont...)}
+  \begin{itemize}
+  \item {
+    AI has continued to improve, with aims set on a player being unable to tell the difference between computer and human players.
+  }
+  \item {
+    A game AI must generally have the following characteristics:
+    \begin{itemize}
+      \item Should feel ``natural".
+      \item Should obey the laws of the game.
+      \item Should be competitive.
+    \end{itemize}
+  }
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Why are games relevant to AI?}
+  \begin{itemize}
+    \item Game playing is considered an intelligent human activity.
+    \item They're fun!
+    \item Clear, well-defined rules with an easy evaluation of success.
+    \item Huge state spaces
+    \item Teaches us how to deal with other agents actively working against us.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{History}
+  \begin{itemize}
+  \item Humble beginnings in the 1940s with some theories
+  \item 1956 - A conference at Dartmouth, Arthur Samuel develops a program that plays Checkers which learned from its previous games
+  \item 1958 - alpha beta pruning is developed!
+  \item 1962 - A computer defeats Robert Nealy, a master Checkers player for the first time.
+  \item 1997 - Gary Kasparov, dominant Chess World Champion is beaten by IBM's Deep Blue
+  \item Humans stop winning Chess and Checkers at all against the top computers.
+  \item 2016 - Google's AlphaGo beats Lee Sedol, ranked among the best players of Go in the world.
+  \end{itemize}
+\end{frame}
+
+\section{Approaches used}
+
+\begin{frame}{Game playing as Search problems}
+  It is easy to model game playing as a search problem defined by:
+  \begin{itemize}
+    \item An initial state
+    \item A successor function
+    \item A goal test
+    \item A path cost
+  \end{itemize}
+
+  Problems that are faced here include:
+
+  \begin{itemize}
+    \item Big state spaces
+    \item Time limits
+    \item Unpredictable opponents
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Minimax Algorithm}
+  \begin{itemize}
+    \item An algorithm for perfect play in deterministic, perfect information games
+    \item The basic idea is simulate all moves and calculate their minimax values i.e best achievable payoff against perfect play by the opponent and play the move with the best minimax value.
+    \item Used as a general approach for nearly the entire history of game playing programs.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Minimax: Example}
+
+  \begin{figure}[htbp]
+  \centering
+  \includegraphics[width=10cm, height=7cm]{minimax-illustration.jpg}
+  \caption{Game tree for Tic-tac-toe}
+  \label{artist_graph}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Minimax: Properties}
+  \begin{itemize}
+    \item Complete: Yes, if tree is finite (Chess has specific rules for this)
+    \item Optimal: Yes, against an optimal opponent.
+    \item Time: \(O(b^m)\)
+    \item Memory: \(O(bm)\)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Resource Limits}
+  \begin{itemize}
+    \item Can't move through the entire search tree.
+    \item Chess, for example, has b = 35 and m = 100 for average games.
+    \item Standard approach involves cutting off search after certain depth.
+    \item Hence, we have to use evaluation functions for values of positions in the game.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Evaluation Functions}
+  \begin{itemize}
+    \item Used to estimate the desirability of a particular position in the game for a player.
+    \item In Chess, measured in centipawns.
+    \item {
+      A typical evaluation function is a weighted sum of features.
+
+      \[EVAL(s) = w_1 f_1(s) + w_2  f_2(s) + \ldots + w_n  f_n(s)\]
+    }
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cutting off Search}
+  \begin{itemize}
+    \item Cutting off search in a brute force minimax does not work in practice.
+    \item A hopeless chess player can see ahead 4 plys.
+    \item A master sees ahead 8 plys on average while Carlsen sees around 12 plys ahead.
+    \item Stockfish, the world's best chess engine, is known to find mates in 16 easily.
+    \item As a result, we need to prune parts of the game tree.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Alpha-Beta Pruning}
+  \begin{itemize}
+    \item The basic idea is to not evaluate (prune) parts of the game tree that will never be reached according to our algorithm.
+    \item The pruning has no effect on final result at the root.
+    \item The values of intermediate nodes may be incorrect though.
+    \item With perfect ordering, time complexity drops to \(O(b^{m/2})\), which is effectively doubling solvable depth.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Alpha-beta pruning: Example}
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=11cm, height=6cm]{alpha-beta.jpg}
+    \caption{Alpha-Beta pruning}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}{Other optimizations}
+  \begin{itemize}
+    \item Iterative Deepening: Useful in games where moves are timed.
+    \item Involves going upto depth 1, then if time remains go until depth 2 and so on.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Search vs Lookup}
+  \begin{itemize}
+    \item It is easy to keep some common positions in the program's database so that it doesn't have to work on searching for best plays in these situations.
+    \item Examples include endgames and openings in Chess and Checkers.
+    \item Chinook, the Checkers engine that ended a 40-year reign of then world champion Marion Tinsley, kept a database defining perfect play for all positions involving 8 or fewer pieces on the board, a total of 443,748,401,247 positions.
+    \item Today, opening tables in Chess contain trillions of master games to make sure that opening play is optimal without much wastage of resources.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Probabilistic games}
+  \begin{itemize}
+    \item Games involving chance, such as backgammon, use a modification of the minimax algorithm called the Expectiminimax algorithm.
+    \item Here, the basic idea is to take the expected values of the minimax value returned and then try to choose the best value.
+    \item Of course, this is not as good as perfect information, deterministic games.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The state-of-the-art in game-playing tech}
+  \begin{itemize}
+    \item The open-source Chess engine, Stockfish, is widely considered to be unbeatable by humans at its best.
+    \item Google's AlphaGo created waves in 2016 when it beat 18-time world champion Lee Sedol in a 5 game match by 4-1.
+    \item AlphaGo uses Monte Carlo search with experience based on a large database of master games and games played by itself as well.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Queries?}
+  Questions?
+\end{frame}
+
+
+
+% All of the following is optional and typically not needed.
+\appendix
+\section<presentation>*{\appendixname}
+\subsection<presentation>*{For Further Reading}
+
+\begin{frame}
+  \frametitle<presentation>{For Further Reading}
+
+  \begin{thebibliography}{10}
+
+  \beamertemplatebookbibitems
+  % Start with overview books.
+
+  \bibitem{Norvig and Russell}
+    Peter Norvig and Stuart Russell
+    \newblock {\em Artificial Intelligence: A Modern Approach}.
+
+
+  \beamertemplatearticlebibitems
+
+  \end{thebibliography}
+\end{frame}
+
+\end{document}
+
+
